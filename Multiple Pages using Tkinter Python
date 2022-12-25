@@ -1,0 +1,91 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+from PIL import Image,ImageTk
+
+class Firstpage(tk.Frame):
+    
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+        Label = tk.Label(self,text="Multiple Pages", font =("Arial Bold",30))
+        Label.place(x=100,y=10)
+        Label = tk.Label(self,text="Enter which Page to go", font =("Arial Bold",20))
+        Label.place(x=100,y=100)
+
+        Label = tk.Label(self,text="Number 1", font =("Arial Bold",15))
+        Label.place(x=100,y=180)
+
+        Button = tk.Button(self, text ="NEXT",font=("Arial",15), command=lambda: controller.show_frame(Secondpage))
+        Button.place(x=300,y=180)
+
+        Label = tk.Label(self,text="Number 2", font =("Arial Bold",15))
+        Label.place(x=100,y=260)
+
+        Button = tk.Button(self, text ="NEXT",font=("Arial",15), command=lambda: controller.show_frame(Thirdpage))
+        Button.place(x=300,y=260)
+
+        Label = tk.Label(self,text="Number 3", font =("Arial Bold",15))
+        Label.place(x=100,y=340)
+
+        Button = tk.Button(self, text ="NEXT",font=("Arial",15), command=lambda: controller.show_frame(Fourthpage))
+        Button.place(x=300,y=340)
+
+        Label = tk.Label(self,text="Number 4", font =("Arial Bold",15))
+        Label.place(x=100,y=420)
+
+        Button = tk.Button(self, text ="NEXT",font=("Arial",15), command=lambda: controller.show_frame(Fifthpage))
+        Button.place(x=300,y=420)
+
+class Secondpage(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+
+        Label = tk.Label(self,text="Second Page", font =("Arial Bold",30))
+        Label.place(x=230,y=230)
+
+class Thirdpage(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+
+        Label = tk.Label(self,text="Third Page", font =("Arial Bold",30))
+        Label.place(x=230,y=230)
+
+class Fourthpage(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+
+        Label = tk.Label(self,text="Fourth Page", font =("Arial Bold",30))
+        Label.place(x=230,y=230)
+
+class Fifthpage(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+
+        Label = tk.Label(self,text="Fifth Page", font =("Arial Bold",30))
+        Label.place(x=230,y=230)
+    
+class Application(tk.Tk):
+    def __init__(self,*args, **kwargs):
+        tk.Tk.__init__(self,*args,**kwargs)
+
+        #creating a window
+        window = tk.Frame(self)
+        window.pack()
+
+        window.grid_rowconfigure(0,minsize = 500)
+        window.grid_columnconfigure(0,minsize = 800)
+
+        self.frames = {}
+        for F in (Firstpage,Secondpage,Thirdpage,Fourthpage,Fifthpage):
+            frame = F(window,self)
+            self.frames[F] = frame
+            frame.grid(row=0,column=0,sticky="nsew")
+        self.show_frame(Firstpage)
+
+    def show_frame(self,page):
+            frame = self.frames[page]
+            frame.tkraise()
+
+
+app = Application()
+app.mainloop()
